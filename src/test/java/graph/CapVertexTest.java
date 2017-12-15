@@ -1,6 +1,7 @@
 package graph;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -24,6 +25,7 @@ class CapVertexTest {
     }
 
     @Test
+    @DisplayName("Test node id value")
     void nodeIdValue() {
         assertAll("nodeId value",
                 () -> assertNotNull(node.getNodeId()),
@@ -33,6 +35,7 @@ class CapVertexTest {
     }
 
     @Test
+    @DisplayName("Test adding an edge")
     void addEdge() {
         CapEdge edge = new CapEdge(4, 2);
         assertAll("add edge",
@@ -44,6 +47,7 @@ class CapVertexTest {
     }
 
     @Test
+    @DisplayName("Test edge count")
     void edgeCount() {
         for (int i = 0; i < 12; i += 2) {
             CapEdge edge = new CapEdge(4, i);
@@ -56,6 +60,7 @@ class CapVertexTest {
     }
 
     @Test
+    @DisplayName("Test the vertex list of edges")
     void edgesList() {
         for (int i = 1; i < 12; i += 2) {
             CapEdge edge = new CapEdge(4, i);
@@ -71,6 +76,7 @@ class CapVertexTest {
     }
 
     @Test
+    @DisplayName("Test string representation of a vertex")
     void stringValue() {
         assertAll("string value",
                 () -> assertNotNull(node.toString()),
