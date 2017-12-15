@@ -1,8 +1,6 @@
 package graph;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Graph implementation
@@ -96,8 +94,35 @@ public class CapGraph implements Graph {
 	 */
 	@Override
 	public List<Graph> getSCCs() {
-		// TODO Auto-generated method stub
-		return null;
+		/*
+		 *  Algorithm Overview
+		 *  ******************
+		 *  	1. DFS(G) keeping track of the order in which vertices finish
+		 *  	2. Compute the transpose of G ==> GT
+		 *  	3. DFS(GT) exploring in the reverse order of finish time from step 1
+		 *  	4. Construct the list of strongly connected components
+		 */
+
+		// Step 1: run DFS on the graph
+		Stack<CapVertex> toExplore = new Stack<>();
+		toExplore.addAll(vertices.values());
+		Stack<CapVertex> finished = this.depthFirstSearch(toExplore);
+
+		// Step 2: compute the transpose of the graph
+		Graph transpose = computeTranspose();
+
+		// Step 3: run DFS on the transpose of the graph
+		Stack<CapVertex> toExploreT = new Stack<>();
+		for (CapVertex node: finished) {
+			CapVertex vertex = ((CapGraph) transpose).getVertices().get(node.getNodeId());
+			toExploreT.add(vertex);
+		}
+		Stack<CapVertex> finishedT = ((CapGraph) transpose).depthFirstSearch(toExploreT);
+
+		// Step 4: construct the list of strongly connected components
+		List<Graph> components;
+		components = constructComponents(transpose, finishedT);
+		return components;
 	}
 
 
@@ -149,6 +174,107 @@ public class CapGraph implements Graph {
 	 */
 	HashMap<Integer, CapVertex> getVertices() {
 		return new HashMap<>(vertices);
+	}
+
+	/**
+	 * Run the DFS algorithm on the graph with the aim of:
+	 * 	- visiting all the vertices of the graph
+	 * 	- keeping track of the order in which we finish exploring
+	 * 	  the graph from each particular node
+	 * @param toExplore a stack of vertices to explore
+	 * @return the stack keeping track of the order of visited vertices
+	 */
+	private Stack<CapVertex> depthFirstSearch(Stack<CapVertex> toExplore) {
+		Stack<CapVertex> finished = new Stack<>();
+		Set<CapVertex> visited = new HashSet<>();
+
+		while (! toExplore.isEmpty()) {
+			CapVertex vertex = toExplore.pop();
+			if (! visited.contains(vertex)) {
+				dfsVisit(vertex, visited, finished);
+			}
+		}
+		return finished;
+	}
+
+	/**
+	 * This method explores the graph from a given node
+	 * @param vertex the start node
+	 * @param visited a set of nodes that are already visited
+	 * @param finished a stack to keep track of the order in which vertices finish
+	 */
+	private void dfsVisit(CapVertex vertex, Set<CapVertex> visited,
+						  Stack<CapVertex> finished) {
+		visited.add(vertex);
+
+		for (CapVertex node: getNeighbors(vertex)) {
+			if (! visited.contains(node)) {
+				dfsVisit(node, visited, finished);
+			}
+		}
+
+		finished.push(vertex);
+	}
+
+	/**
+	 * Return the list of a given vertex neighbors in the graph
+	 * @param vertex the node to explore from
+	 * @return the list of its vertex neighbors
+	 */
+	private List<CapVertex> getNeighbors(CapVertex vertex) {
+		List<CapVertex> neighbors = new ArrayList<>();
+		for (Integer id: vertex.getNeighbors()) {
+			if (! neighbors.contains(vertices.get(id))) {
+				neighbors.add(vertices.get(id));
+			}
+		}
+		return neighbors;
+	}
+
+	/**
+	 * Compute the transpose of this (directed) graph
+	 * ===> the transpose holds the same vertices and edges as the original graph
+	 * ===> the edges are "flipped", i.e: the ege direction is reversed
+	 * @return the transpose of the graph
+	 */
+	private Graph computeTranspose() {
+		Graph transpose = new CapGraph();
+		for (CapVertex vertex: vertices.values()) {
+			transpose.addVertex(vertex.getNodeId());
+			for (Integer from: vertex.getNeighbors()) {
+				transpose.addVertex(from);
+				transpose.addEdge(from, vertex.getNodeId());
+			}
+		}
+		return transpose;
+	}
+
+	/**
+	 * From a given graph, and a stack of vertices from the graph,
+	 * construct a list of their strongly connected components
+	 * @param graph the graph being explored
+	 * @param toExplore the stack that kept kept track of the order in which nodes finished
+	 * @return the list of strongly connected components
+	 */
+	private List<Graph> constructComponents(Graph graph, Stack<CapVertex> toExplore) {
+		List<Graph> components = new ArrayList<>();
+
+		Set<CapVertex> visited = new HashSet<>();
+		for (CapVertex vertex: toExplore) {
+
+			if (! visited.contains(vertex)) {
+				Stack<CapVertex> finished = new Stack<>();
+				((CapGraph) graph).dfsVisit(vertex, visited, finished);
+
+				Graph component = new CapGraph();
+				for (CapVertex node: finished) {
+					component.addVertex(node.getNodeId());
+				}
+				components.add(component);
+			}
+		}
+
+		return components;
 	}
 
 }
