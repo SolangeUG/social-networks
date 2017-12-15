@@ -30,7 +30,7 @@ public interface Graph {
 
 
     /**
-     * Returns all strongly-connected components in a directed graph.
+     * Returns all strongly connected components in a directed graph.
      * @return a list of all SCCs of the graph.
      */
     List<Graph> getSCCs();

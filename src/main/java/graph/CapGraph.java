@@ -58,13 +58,39 @@ public class CapGraph implements Graph {
 	 */
 	@Override
 	public Graph getEgonet(int center) {
-		// TODO Auto-generated method stub
-		return null;
+		/* An egonet in a social network graph is a single user's network
+		 * including their friends and friendships between them
+		 */
+
+		// This egonet should be a new (sub)graph
+		Graph egonet = new CapGraph();
+		egonet.addVertex(center);
+
+		CapVertex ego = vertices.get(center);
+		List<Integer> neighbors = ego.getNeighbors();
+		neighbors.add(center);
+
+		// Add all the center's neighbors and the connecting edges
+		for (CapEdge edge: ego.getEdges()) {
+			egonet.addVertex(edge.getEndPoint());
+			egonet.addEdge(center, edge.getEndPoint());
+		}
+
+		// Add all edges connecting the center's neighbors amongst themselves
+		for (Integer id : neighbors) {
+			CapVertex neighbor = vertices.get(id);
+			for (CapEdge e: neighbor.getEdges()) {
+				if (neighbors.contains(e.getEndPoint())) {
+					egonet.addEdge(id, e.getEndPoint());
+				}
+			}
+		}
+		return egonet;
 	}
 
 
 	/**
-	 * Returns all strongly-connected components in a directed graph.
+	 * Returns all strongly connected components in a directed graph.
 	 * @see graph.Graph#getSCCs()
 	 * @return a list of all SCCs of the graph.
 	 */
@@ -76,18 +102,22 @@ public class CapGraph implements Graph {
 
 
 	/**
-	 * Returns the graph's connections in a readable format.
-	 * The keys in this HashMap are the vertices in the graph.
-	 * The values are the nodes that are reachable via a directed
-	 * edge from the corresponding key.
+	 * Export this graph as a HashMap where:
+	 *  - the keys are all the vertices in the graph
+	 *  - the values are the set of vertices that are reachable via a directed
+	 * 	  edge from the corresponding key.
 	 * The returned representation ignores edge weights and multi-edges.
 	 * @see graph.Graph#exportGraph()
 	 * @return a readable format of the graph's connections.
 	 */
 	@Override
 	public HashMap<Integer, HashSet<Integer>> exportGraph() {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<Integer, HashSet<Integer>> export = new HashMap<>();
+		for (CapVertex vertex: vertices.values()) {
+			HashSet<Integer> neighbors = new HashSet<>(vertex.getNeighbors());
+			export.put(vertex.getNodeId(), neighbors);
+		}
+		return export;
 	}
 
 	/**
