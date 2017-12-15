@@ -1,35 +1,28 @@
-/**
- * @author UCSD MOOC development team
- *
- * Grader for the SCC assignment.
- *
- */
-
 package graph.grader;
+
+import graph.CapGraph;
+import graph.Graph;
+import util.GraphLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.PrintWriter;
-import util.GraphLoader;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.TreeSet;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Scanner;
-import graph.CapGraph;
-import graph.Graph;
+import java.util.*;
 
+/**
+ * Grader for the SCC assignment.
+ * @author UCSD MOOC development team
+ *
+ */
 public class SCCGrader extends Grader {
-    public int totalTests;
-    public int testsPassed;
+
+    private int totalTests;
+    private int testsPassed;
 
     public SCCGrader() {
         totalTests = 0;
         testsPassed = 0;
     }
+
     @SuppressWarnings("deprecation")
 	public static void main(String[] args) {
         SCCGrader grader = new SCCGrader();
@@ -58,6 +51,9 @@ public class SCCGrader extends Grader {
         System.out.close();
     }
 
+    /**
+     * Main grader method
+     */
     public void run() {
 
         try {
@@ -69,15 +65,15 @@ public class SCCGrader extends Grader {
                 String answerFile = "data/scc_answers/scc_" + (i + 1) + ".txt";
                 GraphLoader.loadGraph(g, "data/scc/test_" + (i +1)+ ".txt");
                 BufferedReader br = new BufferedReader(new FileReader(answerFile));
-                feedback += appendFeedback(i + 1, "\nGRAPH: T" + (i + 1));
+                feedback = feedback + appendFeedback(i + 1, "\nGRAPH: T" + (i + 1));
 
                 // build list from answer
-                List<Set<Integer>> answer = new ArrayList<Set<Integer>>();
+                List<Set<Integer>> answer = new ArrayList<>();
                 String line;
 
                 while((line = br.readLine()) != null) {
                     Scanner sc = new Scanner(line);
-                    vertices = new TreeSet<Integer>();
+                    vertices = new TreeSet<>();
                     while(sc.hasNextInt()) {
                         vertices.add(sc.nextInt());
                     }
@@ -92,11 +88,11 @@ public class SCCGrader extends Grader {
                 // get student SCC result
                 List<Graph> graphSCCs = g.getSCCs();
 
-                List<Set<Integer>> sccs = new ArrayList<Set<Integer>>();
+                List<Set<Integer>> sccs = new ArrayList<>();
 
                 for(Graph graph : graphSCCs) {
                     HashMap<Integer, HashSet<Integer>> curr = graph.exportGraph();
-                    TreeSet<Integer> scc = new TreeSet<Integer>();
+                    TreeSet<Integer> scc = new TreeSet<>();
                     for (Map.Entry<Integer, HashSet<Integer>> entry : curr.entrySet()) {
                         scc.add(entry.getKey());
                     }
@@ -127,11 +123,12 @@ public class SCCGrader extends Grader {
                     if(!sccs.contains(answerSCC)) {
                         if(!testFailed) {
                             testFailed = true;
-                            feedback += "FAILED. ";
+                            feedback = feedback + "FAILED. ";
                         }
-                        feedback += "Your result did not contain the scc on line "
-                                     + (j+1) + " in \"" + answerFile + "\"";
-                        feedback += "\n";
+                        feedback = feedback
+                                + ("Your result did not contain the scc on line "
+                                + (j + 1) + " in \"" + answerFile + "\"");
+                        feedback = feedback + "\n";
                         testsPassed--;
                     }
 
@@ -139,13 +136,13 @@ public class SCCGrader extends Grader {
                     if(scc != null && !answer.contains(scc)) {
                         if(!testFailed) {
                             testFailed = true;
-                            feedback += "FAILED. ";
+                            feedback = feedback + "FAILED. ";
                         }
-                        feedback += "Your result contained an extra SCC: ";
+                        feedback = feedback + "Your result contained an extra SCC: ";
                         for(Integer id : scc) {
-                            feedback += id + " ";
+                            feedback = feedback + (id + " ");
                         }
-                        feedback += "\n";
+                        feedback = feedback + "\n";
                         testsPassed--;
                     }
 
@@ -157,13 +154,13 @@ public class SCCGrader extends Grader {
                     if(scc != null && !answer.contains(scc)) {
                         if(!testFailed) {
                             testFailed = true;
-                            feedback += "FAILED. ";
+                            feedback = feedback + "FAILED. ";
                         }
-                        feedback += "Your result contained an extra SCC : ";
+                        feedback = feedback + "Your result contained an extra SCC : ";
                         for(Integer id : scc) {
-                            feedback += id + " ";
+                            feedback = feedback + (id + " ");
                         }
-                        feedback += "\n";
+                        feedback = feedback + "\n";
                         testsPassed--;
                     }
 
@@ -171,7 +168,7 @@ public class SCCGrader extends Grader {
                 }
 
                 if(!testFailed) {
-                    feedback += "PASSED.";
+                    feedback = feedback + "PASSED.";
                 }
 
                 br.close();

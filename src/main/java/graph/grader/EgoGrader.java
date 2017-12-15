@@ -1,11 +1,3 @@
-/**
- * @author UCSD MOOC development team
- * 
- * Grader for the egonet assignment. Runs implementation against
- * ten nodes from the Facebook dataset. 
- *
- */
-
 package graph.grader;
 
 import java.io.BufferedReader;
@@ -18,9 +10,17 @@ import util.GraphLoader;
 import graph.CapGraph;
 import graph.Graph;
 
+/**
+ * Grader for the egonet assignment.
+ * Runs implementation against ten nodes from the Facebook dataset.
+ * @author UCSD MOOC development team
+ *
+ */
 public class EgoGrader extends Grader {
+
     private static final int TESTS = 10;
 
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) {
         Grader grader = new EgoGrader();
         Thread thread = new Thread(grader);
@@ -37,7 +37,9 @@ public class EgoGrader extends Grader {
             }
         }
         if (grader.correct < TESTS) {
-        	grader.feedback = "Some tests failed. Please check the following and try again:\nFailed tests will display the first mismatched lines of the output.\n" + grader.feedback;
+        	grader.feedback = "Some tests failed. Please check the following and try again:\n" +
+                    "Failed tests will display the first mismatched lines of the output.\n" +
+                    grader.feedback;
         } else {
         	grader.feedback = "All tests passed. Congrats!\n" + grader.feedback;
         }
@@ -47,7 +49,10 @@ public class EgoGrader extends Grader {
         System.out.println(makeOutput((double)grader.correct / TESTS, grader.feedback));
     }
 
-    /* Main grading method */
+
+    /**
+     * Main grading method
+     */
     public void run() {
         try {
             Graph graph = new CapGraph();
@@ -75,7 +80,7 @@ public class EgoGrader extends Grader {
                         break;
                     }
 
-                    HashSet<Integer> check = new HashSet<Integer>();
+                    HashSet<Integer> check = new HashSet<>();
                     while(sc.hasNextInt()) {
                         check.add(sc.nextInt());
                     }

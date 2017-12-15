@@ -1,6 +1,6 @@
 /**
- * @author Solange
- * @since 13/12/2017
+ * Main application entry
+ * @author Solange U. Gasengayire
  */
 public class SocialNetworksApp {
 

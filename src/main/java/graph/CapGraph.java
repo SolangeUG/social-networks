@@ -5,16 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * @author Your name here.
- * 
- * For the warm up assignment, you must implement your Graph in a class
- * named CapGraph.  Here is the stub file.
+ * Graph implementation
+ * @author Solange U. Gasengayire
  *
  */
 public class CapGraph implements Graph {
 
-	/* (non-Javadoc)
+	/**
+	 * Adds a vertex with the given id number to the graph
 	 * @see graph.Graph#addVertex(int)
+	 * @param num the vertex id
 	 */
 	@Override
 	public void addVertex(int num) {
@@ -22,8 +22,12 @@ public class CapGraph implements Graph {
 
 	}
 
-	/* (non-Javadoc)
+
+	/**
+	 * Adds an edge from a vertex to another
 	 * @see graph.Graph#addEdge(int, int)
+	 * @param from the origin vertex
+	 * @param to the destination vertex
 	 */
 	@Override
 	public void addEdge(int from, int to) {
@@ -31,8 +35,12 @@ public class CapGraph implements Graph {
 
 	}
 
-	/* (non-Javadoc)
+
+	/**
+	 * Finds the egonet centered at a given node's id
 	 * @see graph.Graph#getEgonet(int)
+	 * @param center the center vertex id
+	 * @return the computed egonet
 	 */
 	@Override
 	public Graph getEgonet(int center) {
@@ -40,8 +48,11 @@ public class CapGraph implements Graph {
 		return null;
 	}
 
-	/* (non-Javadoc)
+
+	/**
+	 * Returns all strongly-connected components in a directed graph.
 	 * @see graph.Graph#getSCCs()
+	 * @return a list of all SCCs of the graph.
 	 */
 	@Override
 	public List<Graph> getSCCs() {
@@ -49,8 +60,15 @@ public class CapGraph implements Graph {
 		return null;
 	}
 
-	/* (non-Javadoc)
+
+	/**
+	 * Returns the graph's connections in a readable format.
+	 * The keys in this HashMap are the vertices in the graph.
+	 * The values are the nodes that are reachable via a directed
+	 * edge from the corresponding key.
+	 * The returned representation ignores edge weights and multi-edges.
 	 * @see graph.Graph#exportGraph()
+	 * @return a readable format of the graph's connections.
 	 */
 	@Override
 	public HashMap<Integer, HashSet<Integer>> exportGraph() {
