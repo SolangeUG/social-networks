@@ -11,6 +11,15 @@ import java.util.List;
  */
 public class CapGraph implements Graph {
 
+	private HashMap<Integer, CapVertex> vertices;
+
+	/**
+	 * Create a new empty graph
+	 */
+	public CapGraph() {
+		this.vertices = new HashMap<>();
+	}
+
 	/**
 	 * Adds a vertex with the given id number to the graph
 	 * @see graph.Graph#addVertex(int)
@@ -18,8 +27,10 @@ public class CapGraph implements Graph {
 	 */
 	@Override
 	public void addVertex(int num) {
-		// TODO Auto-generated method stub
-
+		if (! vertices.containsKey(num)) {
+			CapVertex vertex = new CapVertex(num);
+			vertices.put(num, vertex);
+		}
 	}
 
 
@@ -31,8 +42,11 @@ public class CapGraph implements Graph {
 	 */
 	@Override
 	public void addEdge(int from, int to) {
-		// TODO Auto-generated method stub
-
+		CapVertex start = vertices.get(from);
+		if (start != null) {
+			CapEdge edge = new CapEdge(from, to);
+			start.addEdge(edge);
+		}
 	}
 
 
@@ -74,6 +88,37 @@ public class CapGraph implements Graph {
 	public HashMap<Integer, HashSet<Integer>> exportGraph() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * Return the number of vertices in this graph
+	 * NB: this method is for JUnit testing purposes only
+	 * @return vertex count
+	 */
+	int getVertexCount() {
+		return vertices.size();
+	}
+
+	/**
+	 * Return the number of edges in this graph
+	 * NB: this method is for JUnit testing purposes only
+	 * @return edge count
+	 */
+	int getEdgeCount() {
+		int result = 0;
+		for (CapVertex vertex : vertices.values()) {
+			result += vertex.getEdgeCount();
+		}
+		return result;
+	}
+
+	/**
+	 * Return this graph vertices
+	 * NB : this is a utility method (for JUnit testing purposes)
+	 * @return vertices
+	 */
+	HashMap<Integer, CapVertex> getVertices() {
+		return new HashMap<>(vertices);
 	}
 
 }
