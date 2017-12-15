@@ -35,12 +35,12 @@ The edges in this file are directed; however, each edge also appears in reverse 
 
    This graph consists of directed edges linking Twitter followers to the users they follow.
 It is part of Stanford's Snap network database.
-Source: [Social circles: Twitter](https://snap.stanford.edu/data/egonets-Twitter.html)
+  - Source: [Social circles: Twitter](https://snap.stanford.edu/data/egonets-Twitter.html)
 
 - `twitter_higgs.txt`
 
    This graph consists of people who retweeted the messages of other people at the time of the discovery of the Higgs boson. It is also part of the Snap database.
-Source: [Higgs Twitter Dataset](http://snap.stanford.edu/data/higgs-twitter.html)
+  - Source: [Higgs Twitter Dataset](http://snap.stanford.edu/data/higgs-twitter.html)
 
 
 In all of the files, each line represents an edge from the vertex with the first number to the vertex to the second.
