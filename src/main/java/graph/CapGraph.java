@@ -65,7 +65,7 @@ public class CapGraph implements Graph {
 		egonet.addVertex(center);
 
 		CapVertex ego = vertices.get(center);
-		List<Integer> neighbors = ego.getNeighbors();
+		HashSet<Integer> neighbors = ego.getNeighbors();
 		neighbors.add(center);
 
 		// Add all the center's neighbors and the connecting edges
@@ -217,16 +217,14 @@ public class CapGraph implements Graph {
 	}
 
 	/**
-	 * Return the list of a given vertex neighbors in the graph
+	 * Return the set of a given vertex neighbors in the graph
 	 * @param vertex the node to explore from
-	 * @return the list of its vertex neighbors
+	 * @return the set of its vertex neighbors
 	 */
-	private List<CapVertex> getNeighbors(CapVertex vertex) {
-		List<CapVertex> neighbors = new ArrayList<>();
+	private HashSet<CapVertex> getNeighbors(CapVertex vertex) {
+		HashSet<CapVertex> neighbors = new HashSet<>();
 		for (Integer id: vertex.getNeighbors()) {
-			if (! neighbors.contains(vertices.get(id))) {
-				neighbors.add(vertices.get(id));
-			}
+			neighbors.add(vertices.get(id));
 		}
 		return neighbors;
 	}

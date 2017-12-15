@@ -1,7 +1,6 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * This class represents a vertex (a node)
@@ -12,7 +11,7 @@ import java.util.List;
 public class CapVertex {
 
     private int nodeId;
-    private List<CapEdge> edges;
+    private HashSet<CapEdge> edges;
 
     /**
      * Create a new vertex
@@ -20,7 +19,7 @@ public class CapVertex {
      */
     CapVertex(int node) {
         this.nodeId = node;
-        this.edges = new ArrayList<>();
+        this.edges = new HashSet<>();
     }
 
     /**
@@ -32,11 +31,11 @@ public class CapVertex {
     }
 
     /**
-     * Return this vertex list of connections
-     * @return list of edges
+     * Return this vertex set of connections
+     * @return set of edges
      */
-    List<CapEdge> getEdges() {
-        return new ArrayList<>(edges);
+    HashSet<CapEdge> getEdges() {
+        return new HashSet<>(edges);
     }
 
     /**
@@ -48,14 +47,14 @@ public class CapVertex {
     }
 
     /**
-     * Add a connection to this vertex list of edges
+     * Add a connection to this vertex set of edges
      * @param edge the connection to be added
      * @return true if the edge was successfully added
      *         false otherwise
      */
     boolean addEdge(CapEdge edge) {
         boolean result = false;
-        if (! edges.contains(edge)) {
+        if (edge != null) {
             result = edges.add(edge);
         }
         return result;
@@ -72,16 +71,47 @@ public class CapVertex {
 
     /**
      * Return all the vertices neighbors to this one
-     * @return a list of this node's neighbors
+     * @return a set of this node's neighbors
      */
-    List<Integer> getNeighbors() {
-        List<Integer> neighbors = new ArrayList<>();
+    HashSet<Integer> getNeighbors() {
+        HashSet<Integer> neighbors = new HashSet<>();
         for (CapEdge edge: edges) {
-            int neighbor = edge.getEndPoint();
-            if (! neighbors.contains(neighbor)) {
-                neighbors.add(neighbor);
-            }
+            neighbors.add(edge.getEndPoint());
         }
         return neighbors;
+    }
+
+    /**
+     * Indicates whether some other object is equel to this vertex
+     * @param obj some other object
+     * @return true if this connection equls to obj
+     *         false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+
+        CapVertex other = (CapVertex) obj;
+        return this.nodeId == other.nodeId;
+    }
+
+    /**
+     * Return a hash code value for this vertex.
+     * This method is supported for the benefit of hash tables
+     * such as those provided by
+     * @see java.util.HashMap
+     * @return the hash code value
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + nodeId;
+        return result;
     }
 }
