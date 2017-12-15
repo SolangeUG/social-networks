@@ -207,26 +207,14 @@ public class CapGraph implements Graph {
 						  Stack<CapVertex> finished) {
 		visited.add(vertex);
 
-		for (CapVertex node: getNeighbors(vertex)) {
+		for (Integer id: vertex.getNeighbors()) {
+			CapVertex node = vertices.get(id);
 			if (! visited.contains(node)) {
 				dfsVisit(node, visited, finished);
 			}
 		}
 
 		finished.push(vertex);
-	}
-
-	/**
-	 * Return the set of a given vertex neighbors in the graph
-	 * @param vertex the node to explore from
-	 * @return the set of its vertex neighbors
-	 */
-	private HashSet<CapVertex> getNeighbors(CapVertex vertex) {
-		HashSet<CapVertex> neighbors = new HashSet<>();
-		for (Integer id: vertex.getNeighbors()) {
-			neighbors.add(vertices.get(id));
-		}
-		return neighbors;
 	}
 
 	/**
