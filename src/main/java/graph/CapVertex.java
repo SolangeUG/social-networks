@@ -12,6 +12,7 @@ public class CapVertex {
 
     private int nodeId;
     private HashSet<CapEdge> edges;
+    private HashSet<Integer> neighbors;
 
     /**
      * Create a new vertex
@@ -20,6 +21,7 @@ public class CapVertex {
     CapVertex(int node) {
         this.nodeId = node;
         this.edges = new HashSet<>();
+        this.neighbors = new HashSet<>();
     }
 
     /**
@@ -57,6 +59,9 @@ public class CapVertex {
         if (edge != null) {
             result = edges.add(edge);
         }
+        if (result) {
+            neighbors.add(edge.getEndPoint());
+        }
         return result;
     }
 
@@ -74,11 +79,7 @@ public class CapVertex {
      * @return a set of this node's neighbors
      */
     HashSet<Integer> getNeighbors() {
-        HashSet<Integer> neighbors = new HashSet<>();
-        for (CapEdge edge: edges) {
-            neighbors.add(edge.getEndPoint());
-        }
-        return neighbors;
+        return new HashSet<>(neighbors);
     }
 
     /**
