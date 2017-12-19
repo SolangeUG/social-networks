@@ -50,9 +50,9 @@ public class CapEdge {
     }
 
     /**
-     * Indicates whether some other object is equel to this connection
+     * Indicate whether some other object is equal to this connection
      * @param obj some other object
-     * @return true if this connection equls to obj
+     * @return true if this connection equals to obj
      *         false otherwise
      */
     @Override

@@ -83,9 +83,9 @@ public class CapVertex {
     }
 
     /**
-     * Indicates whether some other object is equel to this vertex
+     * Indicate whether some other object is equal to this vertex
      * @param obj some other object
-     * @return true if this connection equls to obj
+     * @return true if this connection equals to obj
      *         false otherwise
      */
     @Override
