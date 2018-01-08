@@ -1,40 +1,49 @@
-### [Analyzing (Social) Network Data](https://www.coursera.org/learn/intermediate-programming-capstone)
+# Social Networks
 
-> Starter Code for Capstone Project in the [Object Oriented Java Programming: Data Structures and Beyond Specialization](https://www.coursera.org/specializations/java-object-oriented).
->
-> Authored by UCSD MOOC Team:
-> - [Mia Minnes](https://www.coursera.org/instructor/minnes)
-> - [Christine Alvarado](https://www.coursera.org/instructor/alvarado)
-> - [Leo Porter](https://www.coursera.org/instructor/~12264824)
-> - Alec Brickner
-> - Adam Setters
->
-> Date: 3/21/2016
+[![License MIT](https://img.shields.io/badge/license-MIT%20License-green.svg)](https://github.com/SolangeUG/fundamentals/blob/master/LICENSE)
+[![Platform Java](https://img.shields.io/badge/platform-Java-blue.svg)](https://docs.oracle.com/en/java/)
 
-#### Description
+## Languages - Libraries - Tools
 
-The files provided are skeleton code, as well as grading previews and testing files to be used in completing the course programming assignments. No code will be provided for the capstone project.
 
-#### Files
 
-Below are the files provided for the warm-up assignment in week 1:
 
-- `graph.Graph.java`
-- `graph.CapGraph.java`
-- `util.GraphLoader.java`
-- `graph.grader.Grader.java`
-- `graph.grader.EgoGrader.java`
-- `graph.grader.SCCGrader.java`
+## Requirements
 
-Data files and information about them can be found in the `data/` directory.
 
-#### Setup
 
-Importing Project into eclipse:
-1. Create a new Java Project in your workspace
-2. Import the starter files:
-	  `File` -> `Import` -> `Select "File System"` -> `Next` -> `Browse and set
-	  root directory to folder contents of zip were extracted to` -> `Finish`
 
-Feel free to use another IDE or manually compile and run your programs.
-If you need help, Google is your friend.
+## Resources
+
+- [Analyzing (Social) Network Data](https://www.coursera.org/learn/intermediate-programming-capstone)
+- [Object Oriented Java Programming: Data Structures and Beyond Specialization](https://www.coursera.org/specializations/java-object-oriented)
+
+
+
+## License
+
+[The MIT License (MIT)](https://opensource.org/licenses/MIT)
+
+````
+Copyright (c) 2015 UC San Diego Intermediate Software Development MOOC team
+Copyright (c) 2018 Solange Umuhire Gasengayire
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+````
